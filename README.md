@@ -58,10 +58,11 @@ Works on:
    ```
     [Unit]
     Description=Pushbullet Notification Service
-    After=network-online.target
-    StartLimitIntervalSec=0
+    After=graphical-session.target network-online.target
+    Requires=graphical-session.target
     
     [Service]
+    ExecStartPre=/bin/sleep 15
     ExecStart=%h/.stuff/push.py
     Restart=on-failure
     RestartSec=10
@@ -72,7 +73,7 @@ Works on:
     Environment="PUSHBULLET_DEVICE_ID=ujxSAMPLEZ32i"
     
     [Install]
-    WantedBy=graphical.target
+    WantedBy=graphical-session.target
 
    ```
 
