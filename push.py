@@ -253,6 +253,9 @@ def main_loop():
                 ssl_sock.close()
             except:
                 pass
+            if backoff_time >= max_backoff:
+                logging.error("Maximum reconnection attempts reached. Exiting service.")
+                sys.exit(1)
             time.sleep(backoff_time)
             backoff_time = min(backoff_time * 2, max_backoff)
 
